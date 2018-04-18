@@ -43,8 +43,9 @@ namespace WallE
         public void ReadMap(string file)
         {
             Map map = new Map(10, 3);
-
             StreamReader entrada = new StreamReader("madrid.map.txt");
+            Lista.Lista lista = new Lista.Lista();
+            lista = null;
 
             
             string texto = entrada.ReadToEnd();
@@ -59,16 +60,16 @@ namespace WallE
                         CreatePlace( parrafos,ref map,i);
                         break;
                     case "street":
-                        CreateStreet(parrafos,ref map,i);
+                        CreateStreet(parrafos,ref map, i);
                         break;
                     case "garbage":
-                        CreateItem(parrafos,ref map,i);
+                        CreateItem(parrafos,ref map, i, out lista);
                         break;
                 }
             }
         }
 
-        private void CreatePlace(string[] parrafos, ref Map mapa,int i)
+        private void CreatePlace(string[] parrafos, ref Map mapa, int i)
         {
             bool spaceShip = false;
 
@@ -98,15 +99,58 @@ namespace WallE
 
         }
 
-        private void CreateStreet(string[] parrafos, ref Map mapa )
+        private void CreateStreet(string[] parrafos, ref Map mapa, int i )
         {
+            int place = int.Parse(parrafos[3]);
+            int placeToGo = int.Parse(parrafos[6]);
+            int index = 0;
+            int indexReverse = 0;
 
+            for(int j = 0; j < mapa.places[i].connections.Length; j++)
+            {
+                if(mapa.places[place].connections[j] == 0)
+                {
+                    mapa.places[place].connections[j] = -1;
+                }
+                
+            }
+
+            if(parrafos[2] == "place")
+            {
+                switch(parrafos[4])
+                {
+                    case "north":
+                        index = 0;
+                        indexReverse = 1;
+                        break;
+
+                    case "south":
+                        index = 1;
+                        indexReverse = 0;
+                        break;
+
+                    case "east":
+                        index = 2;
+                        indexReverse = 3;
+                        break;
+
+                    case "west":
+                        index = 3;
+                        indexReverse = 2;
+                        break;
+                }
+
+                mapa.places[place].connections[index] = placeToGo;
+                mapa.places[placeToGo].connections[indexReverse] = place;
+            }
         }
 
-        private void CreateItem(string []parrafos, ref Map mapa)
+        private void CreateItem(string []parrafos, ref Map mapa, int i, ref Lista.Lista lista)
         {
-
-
+            mapa.items[int.Parse(parrafos[1])].name = parrafos[2];
+            mapa.items[int.Parse(parrafos[1])].description = parrafos[5];
+            
+            lista.insertaFin(int.Parse(parrafos[1]));
         }
     }
 }
