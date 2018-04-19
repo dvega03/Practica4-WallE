@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Program
+namespace WallE
 {
     class Program
     {
+        static void Main(string[] args)
+        {
+        }
     }
 }
