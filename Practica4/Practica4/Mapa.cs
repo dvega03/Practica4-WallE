@@ -161,6 +161,65 @@ namespace Mapa
         {
             return places[pl].description;
         }
+
+        public string GetMoves(int pl)
+        {
+            string conexiones = "";
+            for (int i = 0; i < places[pl].connections.Length; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        if (places[pl].connections[i] != -1)
+                        {
+                            conexiones = conexiones + "North: " + places[places[pl].connections[i]].name + "\n";
+                        }
+                        else
+                        {
+                            conexiones = conexiones + "North: No hay nada más al Norte\n";
+                        }
+                        break;
+                    case 1:
+                        if (places[pl].connections[i] != -1)
+                        {
+                            conexiones = conexiones + "South: " + places[places[pl].connections[i]].name + "\n";
+                        }
+                        else
+                        {
+                            conexiones = conexiones + "South: No hay nada más al Sur\n";
+                        }
+                        break;
+                    case 2:
+                        if (places[pl].connections[i] != -1)
+                        {
+                            conexiones = conexiones + "East: " + places[places[pl].connections[i]].name + "\n";
+                        }
+                        else
+                        {
+                            conexiones = conexiones + "East: No hay nada más al Este\n";
+                        }
+                        break;
+                    case 3:
+                        if (places[pl].connections[i] != -1)
+                        {
+                            conexiones = conexiones + "West: " + places[places[pl].connections[i]].name + "\n";
+                        }
+                        else
+                        {
+                            conexiones = conexiones + "West: No hay nada más al Oeste\n";
+                        }
+                        break;
+                }
+            }
+            return conexiones;
+        }
+
+        /*public int GetNumItems (int pl)
+        {
+            
+        }*/
+
+
     }
     
 }
