@@ -28,7 +28,7 @@ namespace Mapa
             // con el lugar al norte, sur, este y oeste
             // -1 si no hay conexion
             public Lista.Lista itemsInPlace; // lista de enteros, indices al vector de items
-            
+
         }
         Place[] places; // vector de lugares del mapa
         Item[] items; // vector de items del juego
@@ -51,34 +51,34 @@ namespace Mapa
             {
                 for (int j = 0; j < map.places[i].connections.Length; j++)
                 {
-                    
-                     map.places[i].connections[j] = -1;
-                    
+
+                    map.places[i].connections[j] = -1;
+
                 }
             }
-                
-           while(entrada.EndOfStream == false)
-           {
-               string linea = entrada.ReadLine();
+
+            while (entrada.EndOfStream == false)
+            {
+                string linea = entrada.ReadLine();
 
 
-               string[] palabras = linea.Split(' ');
-               switch (palabras[0])
-               {
-                   case "place":
-                       CreatePlace(palabras, entrada);
-                       break;
-                   case "street":
-                       CreateStreet(palabras);
-                       break;
-                   case "garbage":
-                       CreateItem(palabras, ref lista);
-                       break;
-               }
-           }
+                string[] palabras = linea.Split(' ');
+                switch (palabras[0])
+                {
+                    case "place":
+                        CreatePlace(palabras, entrada);
+                        break;
+                    case "street":
+                        CreateStreet(palabras);
+                        break;
+                    case "garbage":
+                        CreateItem(palabras, ref lista);
+                        break;
+                }
+            }
         }
 
-        private void CreatePlace(string []palabras,  StreamReader f)
+        private void CreatePlace(string[] palabras, StreamReader f)
         {
 
 
@@ -101,12 +101,12 @@ namespace Mapa
             int placeToGo = int.Parse(palabras[6]);
             int index = 0;
             int indexReverse = 0;
-            
-            
 
-            if(palabras[2] == "place")
+
+
+            if (palabras[2] == "place")
             {
-                switch(palabras[4])
+                switch (palabras[4])
                 {
                     case "north":
                         index = 0;
@@ -134,20 +134,21 @@ namespace Mapa
             }
         }
 
-        private void CreateItem(string []palabras, ref Lista.Lista lista)
+        private void CreateItem(string[] palabras, ref Lista.Lista lista)
         {
             items[int.Parse(palabras[1])].name = palabras[2];
             items[int.Parse(palabras[1])].description = palabras[5];
-            
-            lista.insertaFin(int.Parse(palabras[1]));
+
+
+            places[int.Parse(palabras[5])].itemsInPlace.insertaFin(int.Parse(palabras[1]));
         }
 
         private string ReadDescription(StreamReader f)
         {
             string desc = string.Empty;
-            
 
-            while(f.ReadLine() != string.Empty)
+
+            while (f.ReadLine() != string.Empty)
             {
                 desc = desc + f.ReadLine() + '\n';
             }
@@ -164,62 +165,100 @@ namespace Mapa
 
         public string GetMoves(int pl)
         {
-            string conexiones = "";
+
+            string moves = null;
+
             for (int i = 0; i < places[pl].connections.Length; i++)
             {
-                switch (i)
+                if (places[pl].connections[i] != -1)
                 {
-                    case 0:
-                        if (places[pl].connections[i] != -1)
-                        {
-                            conexiones = conexiones + "North: " + places[places[pl].connections[i]].name + "\n";
-                        }
-                        else
-                        {
-                            conexiones = conexiones + "North: No hay nada más al Norte\n";
-                        }
-                        break;
-                    case 1:
-                        if (places[pl].connections[i] != -1)
-                        {
-                            conexiones = conexiones + "South: " + places[places[pl].connections[i]].name + "\n";
-                        }
-                        else
-                        {
-                            conexiones = conexiones + "South: No hay nada más al Sur\n";
-                        }
-                        break;
-                    case 2:
-                        if (places[pl].connections[i] != -1)
-                        {
-                            conexiones = conexiones + "East: " + places[places[pl].connections[i]].name + "\n";
-                        }
-                        else
-                        {
-                            conexiones = conexiones + "East: No hay nada más al Este\n";
-                        }
-                        break;
-                    case 3:
-                        if (places[pl].connections[i] != -1)
-                        {
-                            conexiones = conexiones + "West: " + places[places[pl].connections[i]].name + "\n";
-                        }
-                        else
-                        {
-                            conexiones = conexiones + "West: No hay nada más al Oeste\n";
-                        }
-                        break;
+                    string line = Dir2String(i) + ": " + places[pl].name + '\n';
+                    moves = moves + line;
                 }
             }
-            return conexiones;
+
+            return moves;
+
         }
 
-        /*public int GetNumItems (int pl)
+        public int GetNumItems(int pl)
         {
-            
-        }*/
+            return places[pl].itemsInPlace.cuentaEltos();
+        }
+
+        public string GetItemsInfo(int it)
+        {
+            string info = it + ": " + items[it].name + " " + items[it].description;
+            return info;
+        }
+
+
+        public string GetItemsPlace(int pl)
+        {
+            string info = null;
+
+            for (int i = 0; i < places[pl].itemsInPlace.cuentaEltos(); i++)
+            {
+                string linea = places[pl].itemsInPlace.nEsimo(i) + ": " + items[places[pl].itemsInPlace.nEsimo(i)].name + " " + items[places[pl].itemsInPlace.nEsimo(i)].description + '\n';
+                info = info + linea;
+            }
+
+            return info;
+
+        }
+
+        public void PickItemPlace(int pl, int it)
+        {
+            places[pl].itemsInPlace.borraElto(it);
+        }
+
+        public void DropItemPlace(int pl, int it)
+        {
+            places[pl].itemsInPlace.insertaNesimo(it, it);
+        }
+
+        public int Move(int pl, Direction dir)
+        {
+            int lugarLlegada;
+
+            int dirIndex = (int)dir;
+
+            lugarLlegada = places[pl].connections[dirIndex];
+
+            return lugarLlegada;
+
+        }
+
+        public bool isSpaceship(int pl)
+        {
+            return places[pl].spaceShip;
+        }
+
+        private string Dir2String(int index)
+        {
+            string direction = null;
+            Direction dir = (Direction)index;
+            switch (dir)
+            {
+                case Direction.North:
+                    direction = "north";
+                    break;
+                case Direction.South:
+                    direction = "south";
+                    break;
+                case Direction.East:
+                    direction = "east";
+                    break;
+                case Direction.West:
+                    direction = "west";
+                    break;
+            }
+
+            return direction;
+        }
+
 
 
     }
-    
+
 }
