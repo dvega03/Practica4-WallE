@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="WallE.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="ListaEnlazada.cs" />
     <Compile Include="Mapa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

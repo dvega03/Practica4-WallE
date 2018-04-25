@@ -19,7 +19,7 @@ namespace WallE
             m.ReadMap("madrid.map.txt");
             string comando = null;
 
-            while (!m.isSpaceship(w.GetPosition()) || comando == "quit")
+            while (!m.isSpaceship(w.GetPosition()) || comando != "quit")
             {
                 Console.Write(">");
                 comando = Console.ReadLine();
@@ -46,13 +46,13 @@ namespace WallE
                     w.DropItem(m, int.Parse(splitcom[1]));
                     break;
                 case "items":
-                    m.GetItemsPlace(w.GetPosition());
+                    Console.WriteLine(m.GetItemsPlace(w.GetPosition()));
                     break;
                 case "info":
-                    m.GetPlaceInfo(w.GetPosition());
+                    Console.WriteLine(m.GetPlaceInfo(w.GetPosition()));
                     break;
                 case "bag":
-                    w.Bag(m);
+                    Console.WriteLine(w.Bag(m));
                     break;
                 case "quit":
                     

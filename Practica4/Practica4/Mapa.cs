@@ -42,20 +42,12 @@ namespace Mapa
 
         public void ReadMap(string file)
         {
-            Map map = new Map(10, 3);
+           
             StreamReader entrada = new StreamReader(file);
-            Lista.Lista lista = new Lista.Lista();
-            lista = null;
+            
+            
 
-            for (int i = 0; i < places.Length; i++)
-            {
-                for (int j = 0; j < map.places[i].connections.Length; j++)
-                {
-
-                    map.places[i].connections[j] = -1;
-
-                }
-            }
+            
 
             while (entrada.EndOfStream == false)
             {
@@ -72,10 +64,13 @@ namespace Mapa
                         CreateStreet(palabras);
                         break;
                     case "garbage":
-                        CreateItem(palabras, ref lista);
+                        CreateItem(palabras);
                         break;
                 }
             }
+
+            entrada.Close();
+            
         }
 
         private void CreatePlace(string[] palabras, StreamReader f)
@@ -93,6 +88,21 @@ namespace Mapa
 
             places[int.Parse(palabras[1])].description = ReadDescription(f);
 
+            places[int.Parse(palabras[1])].connections = new int[4];
+
+            places[int.Parse(palabras[1])].itemsInPlace = new Lista.Lista();
+
+            if (places.Length - 1 == int.Parse(palabras[1]))
+            {
+                for (int i = 0; i < places.Length; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        places[i].connections[j] = -1;
+
+                    }
+                }
+            }
         }
 
         private void CreateStreet(string[] palabras)
@@ -131,10 +141,13 @@ namespace Mapa
 
                 places[place].connections[index] = placeToGo;
                 places[placeToGo].connections[indexReverse] = place;
+
+                
+
             }
         }
 
-        private void CreateItem(string[] palabras, ref Lista.Lista lista)
+        private void CreateItem(string[] palabras)
         {
             items[int.Parse(palabras[1])].name = palabras[2];
             items[int.Parse(palabras[1])].description = palabras[5];
@@ -145,16 +158,20 @@ namespace Mapa
 
         private string ReadDescription(StreamReader f)
         {
-            string desc = string.Empty;
+            string description = null;
 
+            string line = f.ReadLine();
 
-            while (f.ReadLine() != string.Empty)
+            while(line != "")
             {
-                desc = desc + f.ReadLine() + '\n';
+                description = description + line + '\n';
+                line = f.ReadLine();
+
             }
 
-            string description = desc.Replace('"'.ToString(), string.Empty);
-
+            string []desc = description.Split('"');
+            description = desc[1];
+            
             return description;
         }
 
