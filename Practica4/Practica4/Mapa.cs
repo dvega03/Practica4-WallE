@@ -80,7 +80,7 @@ namespace Mapa
             bool spaceShip = false;
 
             places[int.Parse(palabras[1])].name = palabras[2];
-            if (palabras[3] == "noSpaceship") spaceShip = false;
+            if (palabras[3] == "noSpaceShip") spaceShip = false;
             else spaceShip = true;
 
             places[int.Parse(palabras[1])].spaceShip = spaceShip;
@@ -149,11 +149,12 @@ namespace Mapa
 
         private void CreateItem(string[] palabras)
         {
+            
             items[int.Parse(palabras[1])].name = palabras[2];
             items[int.Parse(palabras[1])].description = palabras[5];
 
 
-            places[int.Parse(palabras[5])].itemsInPlace.insertaFin(int.Parse(palabras[1]));
+            places[int.Parse(palabras[4])].itemsInPlace.insertaFin(int.Parse(palabras[1]));
         }
 
         private string ReadDescription(StreamReader f)
@@ -234,7 +235,7 @@ namespace Mapa
             places[pl].itemsInPlace.insertaNesimo(it, it);
         }
 
-        public int Move(int pl, Direction dir)
+        public int Move(int pl, Direction dir)//Hacer excepcion de fuera de rango 
         {
             int lugarLlegada;
 

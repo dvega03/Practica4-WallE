@@ -19,11 +19,22 @@ namespace WallE
             m.ReadMap("madrid.map.txt");
             string comando = null;
 
-            while (!m.isSpaceship(w.GetPosition()) || comando != "quit")
+            bool fin = false;
+
+            while (!fin && comando != "quit")
             {
                 Console.Write(">");
                 comando = Console.ReadLine();
-                ProcesaInput(comando, w, m);
+                try
+                {
+                    ProcesaInput(comando, w, m);
+                }
+                catch
+                {
+                    Console.WriteLine("Introduce un comando válido");
+                }
+                
+                fin = m.isSpaceship(w.GetPosition());
             }
             
             
@@ -34,30 +45,46 @@ namespace WallE
         {
             string[] splitcom = com.Split(' ');
 
-            switch(splitcom[0])
+            if (splitcom[0] != "go" || splitcom[0] != "pick" || splitcom[0] != "drop" || splitcom[0] != "info" || splitcom[0] != "items" || splitcom[0] != "bag" || splitcom[0] != "quit")
             {
-                case "go":
-                    w.Move(m, String2Dir(splitcom[1]));
-                    break;
-                case "pick":
-                    w.PickItem(m, int.Parse(splitcom[1]));
-                    break;
-                case "drop":
-                    w.DropItem(m, int.Parse(splitcom[1]));
-                    break;
-                case "items":
-                    Console.WriteLine(m.GetItemsPlace(w.GetPosition()));
-                    break;
-                case "info":
-                    Console.WriteLine(m.GetPlaceInfo(w.GetPosition()));
-                    break;
-                case "bag":
-                    Console.WriteLine(w.Bag(m));
-                    break;
-                case "quit":
-                    
-                    break;
+                throw new Exception("");
             }
+            else
+            {
+                switch (splitcom[0])
+                {
+                    case "go":
+                        if (splitcom[1] == "north" || splitcom[1] == "south" || splitcom[1] == "east" || splitcom[1] == "west")
+                        {
+                            w.Move(m, String2Dir(splitcom[1]));
+                        }
+                        else
+                        {
+                            throw new Exception("");
+                        }
+                        break;
+                    case "pick":
+                        w.PickItem(m, int.Parse(splitcom[1]));
+                        break;
+                    case "drop":
+                        w.DropItem(m, int.Parse(splitcom[1]));
+                        break;
+                    case "items":
+                        Console.WriteLine(m.GetItemsPlace(w.GetPosition()));
+                        break;
+                    case "info":
+                        Console.WriteLine(m.GetPlaceInfo(w.GetPosition()));
+                        break;
+                    case "bag":
+                        Console.WriteLine(w.Bag(m));
+                        break;
+                    case "quit":
+
+                        break;
+                }
+            }
+
+           
 
 
         }
