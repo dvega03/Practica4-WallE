@@ -1,0 +1,7 @@
+go north 
+info
+go south
+info 
+go east
+info
+

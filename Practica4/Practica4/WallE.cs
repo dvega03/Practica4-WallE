@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Lista;
 using Mapa;
+using System.IO;
 
 namespace WallE
 {
@@ -17,6 +18,8 @@ namespace WallE
             WallE w = new WallE();
 
             m.ReadMap("madrid.map.txt");
+            EjecutaComandos("Comandos.txt", w,m);
+            
             string comando = null;
 
             bool fin = false;
@@ -45,7 +48,7 @@ namespace WallE
         {
             string[] splitcom = com.Split(' ');
 
-            if (splitcom[0] != "go" || splitcom[0] != "pick" || splitcom[0] != "drop" || splitcom[0] != "info" || splitcom[0] != "items" || splitcom[0] != "bag" || splitcom[0] != "quit")
+            if (splitcom[0] != "go" && splitcom[0] != "pick" && splitcom[0] != "drop" && splitcom[0] != "info" && splitcom[0] != "items" && splitcom[0] != "bag" && splitcom[0] != "quit")
             {
                 throw new Exception("");
             }
@@ -86,6 +89,19 @@ namespace WallE
 
            
 
+
+        }
+
+        static void EjecutaComandos(string file, WallE w, Map m)
+        {
+            StreamReader entrada = new StreamReader(file);
+            string linea = entrada.ReadLine(); ;
+            while (entrada.EndOfStream == false && linea != "")
+            {
+                ProcesaInput(linea, w, m);
+                linea = entrada.ReadLine();
+            }
+            entrada.Close();
 
         }
 
