@@ -18,7 +18,7 @@ namespace WallE
             WallE w = new WallE();
 
             m.ReadMap("madrid.map.txt");
-            EjecutaComandos("Comandos.txt", w,m);
+            
             
             string comando = null;
 
@@ -39,10 +39,57 @@ namespace WallE
                 
                 fin = m.isSpaceship(w.GetPosition());
             }
+
+            if(comando == "quit")
+            {
+                Console.WriteLine("¿Desea guardar la partida?" + '\n' + "SI O NO");
+                string res = Console.ReadLine().ToLower();
+                if ( res == "si")
+                {
+                    Console.WriteLine("Introduzca un nombre de usuario : ");
+                    string usuario = Console.ReadLine();
+                    GestionArchivosGuardado(usuario, w, m);
+
+                }
+            }
             
             
 
         }
+
+        static void GestionArchivosGuardado(string usuario, WallE w, Map m)
+        {
+            if (File.Exists(usuario))
+            {
+                GuardaProgreso(usuario, w, m);
+            }
+            else
+            {
+                Console.WriteLine(usuario + " es su nuevo nombre de usuario.");
+                File.Create(usuario);
+                GuardaProgreso(usuario, w, m);
+
+            }
+
+        }
+
+
+        static void GuardaProgreso(string usuario, WallE w, Map m)
+        {
+
+
+            int pos = w.GetPosition();
+            string bag = w.Bag(m);
+            m.GuardaPartida(usuario, pos, bag);
+           
+        }
+
+        static void CargaProgreso(string usuario,WallE w, Map m)
+        {
+
+        }
+
+       
 
         static void ProcesaInput(string com, WallE w, Map m)
         {

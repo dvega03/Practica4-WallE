@@ -252,6 +252,23 @@ namespace Mapa
             return places[pl].spaceShip;
         }
 
+        public void GuardaPartida(string usuario, int pos, string bag)
+        {
+            
+            StreamWriter datosPartida = new StreamWriter(usuario);
+
+            datosPartida.WriteLine(pos);
+            datosPartida.WriteLine("Places");
+            for (int i = 0; i < places.Length; i++)
+            {
+                datosPartida.Write(GetItemsPlace(i));
+            }
+            datosPartida.WriteLine("Bag");
+            datosPartida.WriteLine(bag);
+
+            datosPartida.Close();
+        }
+
         private string Dir2String(int index)
         {
             string direction = null;
