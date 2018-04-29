@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Lista;
-using System.IO;
+﻿using System.IO;
 
 
 namespace Mapa
@@ -258,15 +252,45 @@ namespace Mapa
             StreamWriter datosPartida = new StreamWriter(usuario);
 
             datosPartida.WriteLine(pos);
+            datosPartida.WriteLine("Bag");
+            if(bag != null)
+            {
+                string[] palBag = bag.Split(' ');
+                int posicion = int.Parse(palBag[0][0].ToString());
+                datosPartida.WriteLine(posicion);
+            }
+            
             datosPartida.WriteLine("Places");
             for (int i = 0; i < places.Length; i++)
             {
-                datosPartida.Write(GetItemsPlace(i));
+                for(int j = 0; j < places[i].itemsInPlace.cuentaEltos(); j++)
+                {
+                    int itemPos = places[i].itemsInPlace.nEsimo(j);
+                    string placeInfo = i + " : " + itemPos;
+                    datosPartida.WriteLine(placeInfo);
+                }
             }
-            datosPartida.WriteLine("Bag");
-            datosPartida.WriteLine(bag);
-
             datosPartida.Close();
+        }
+
+        public void CargaPartida(StreamReader f)
+        {
+
+            Lista.Lista l = new Lista.Lista();
+
+            for(int i = 0; i < places.Length; i++)
+            {
+                places[i].itemsInPlace = l;
+            }
+           
+
+            while (f.EndOfStream == false)
+            {
+                string[] palabras = f.ReadLine().Split(' ');
+                places[int.Parse(palabras[0])].itemsInPlace.insertaFin(int.Parse(palabras[2]));
+            }
+
+            f.Close();
         }
 
         private string Dir2String(int index)

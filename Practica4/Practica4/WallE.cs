@@ -18,8 +18,17 @@ namespace WallE
             WallE w = new WallE();
 
             m.ReadMap("madrid.map.txt");
-            
-            
+
+            Console.WriteLine("¿Quieres cargar una partida?" + '\n'+ "SI o NO");
+            string resp = Console.ReadLine().ToLower();
+            if (resp == "si")
+            {
+                Console.WriteLine("Introduzca un nombre de usuario : ");
+                string usuarioCarga = Console.ReadLine();
+                CargaProgreso(usuarioCarga, w, m);
+
+            }
+
             string comando = null;
 
             bool fin = false;
@@ -47,8 +56,8 @@ namespace WallE
                 if ( res == "si")
                 {
                     Console.WriteLine("Introduzca un nombre de usuario : ");
-                    string usuario = Console.ReadLine();
-                    GestionArchivosGuardado(usuario, w, m);
+                    string usuarioGuardado = Console.ReadLine();
+                    ArchivosDeGuardado(usuarioGuardado, w, m);
 
                 }
             }
@@ -57,7 +66,7 @@ namespace WallE
 
         }
 
-        static void GestionArchivosGuardado(string usuario, WallE w, Map m)
+        static void ArchivosDeGuardado(string usuario, WallE w, Map m)
         {
             if (File.Exists(usuario))
             {
@@ -66,7 +75,6 @@ namespace WallE
             else
             {
                 Console.WriteLine(usuario + " es su nuevo nombre de usuario.");
-                File.Create(usuario);
                 GuardaProgreso(usuario, w, m);
 
             }
@@ -86,7 +94,8 @@ namespace WallE
 
         static void CargaProgreso(string usuario,WallE w, Map m)
         {
-
+            StreamReader f = new StreamReader(usuario);
+            w.CargaPartida(f, m);
         }
 
        
@@ -228,6 +237,25 @@ namespace WallE
         public bool atSpaceShip(Map map)
         {
             return map.isSpaceship(pos);
+        }
+
+        public void CargaPartida(StreamReader f, Map m)
+        {
+            pos = int.Parse(f.ReadLine());
+            if (f.ReadLine() == "Bag")
+            {
+                string linea = f.ReadLine();
+                while (linea != "Places" && linea != null)
+                {
+                    int item = int.Parse(linea);
+                    bag.insertaFin(item);
+                    linea = f.ReadLine();
+                }
+
+            }
+
+            m.CargaPartida(f);
+
         }
 
     }
