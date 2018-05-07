@@ -276,11 +276,9 @@ namespace Mapa
         public void CargaPartida(StreamReader f)
         {
 
-            Lista.Lista l = new Lista.Lista();
-
             for(int i = 0; i < places.Length; i++)
             {
-                places[i].itemsInPlace = l;
+                places[i].itemsInPlace = new Lista.Lista();
             }
            
 
