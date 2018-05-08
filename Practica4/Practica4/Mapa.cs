@@ -143,9 +143,13 @@ namespace Mapa
 
         private void CreateItem(string[] palabras)
         {
-            
+            string itemInfo = "";
+            for (int i = 5; i < palabras.Length; i++)
+            {
+                itemInfo = itemInfo + palabras[i] + " ";
+            }
             items[int.Parse(palabras[1])].name = palabras[2];
-            items[int.Parse(palabras[1])].description = palabras[5];
+            items[int.Parse(palabras[1])].description = itemInfo;
 
 
             places[int.Parse(palabras[4])].itemsInPlace.insertaFin(int.Parse(palabras[1]));

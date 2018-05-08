@@ -16,18 +16,40 @@ namespace WallE
         {
             Map m = new Map(10,3);
             WallE w = new WallE();
+            bool empiezaJuego = false;
 
             m.ReadMap("madrid.map.txt");
 
-            Console.WriteLine("¿Quieres cargar una partida?" + '\n'+ "SI o NO");
-            string resp = Console.ReadLine().ToLower();
-            if (resp == "si")
+            while (!empiezaJuego)
             {
-                Console.WriteLine("Introduzca un nombre de usuario : ");
-                string usuarioCarga = Console.ReadLine();
-                CargaProgreso(usuarioCarga, w, m);
-
+                Console.WriteLine("¿Quieres cargar una partida?" + '\n' + "SI o NO");
+                string resp = Console.ReadLine().ToLower();
+                if (resp == "si")
+                {
+                    empiezaJuego = true;
+                    Console.WriteLine("Introduzca un nombre de usuario : ");
+                    string usuarioCarga = Console.ReadLine();
+                    try
+                    {
+                        CargaProgreso(usuarioCarga, w, m);
+                    }
+                    catch
+                    {
+                        empiezaJuego = false;
+                        Console.WriteLine("Usuario no encontrado");
+                    }
+                    
+                }
+                else if (resp == "no")
+                {
+                    empiezaJuego = true;
+                }
+                else
+                {
+                    Console.WriteLine("Respuesta no admitida, escribe SI o NO");
+                }
             }
+            
 
             string comando = null;
 
