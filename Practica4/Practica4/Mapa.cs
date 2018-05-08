@@ -5,7 +5,7 @@ namespace Mapa
 {
     // posibles direcciones
     public enum Direction { North, South, East, West };
-    class Map
+    public class Map
     {
 
         // items basura

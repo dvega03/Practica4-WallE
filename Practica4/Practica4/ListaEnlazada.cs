@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Lista
 {
 
-    class Lista
+    public class Lista
     {
         private class Nodo
         {
@@ -171,9 +172,10 @@ namespace Lista
                 insertaIni(e);
             }
         }
-        public void borraElto(int e)
+        public bool borraElto(int e)
         {
             Nodo n = new Nodo();
+            bool eliminado = false;
             n = buscaNodo(e);
             Nodo aux = pri; //Anterior Nodo
             if (n != null)
@@ -181,6 +183,7 @@ namespace Lista
                 if (aux.dato == n.dato)
                 {
                     pri = aux.sig;
+                    eliminado = true;
                 }
                 else
                 {
@@ -189,7 +192,7 @@ namespace Lista
                         aux = aux.sig;
                     }
                     aux.sig = n.sig;
-                    Console.WriteLine("Elemento borrado satisfactoriamente.");
+                    eliminado = true;
 
                 }
             }
@@ -197,6 +200,8 @@ namespace Lista
             {
                 Console.WriteLine("ERROR. No existe el nodo con dato " + e);
             }
+
+            return eliminado;
 
         }
         public void borraTodos(int e)
@@ -244,6 +249,22 @@ namespace Lista
             {
                 Console.WriteLine("ERROR. Nodo no encontrado.");
             }
+        }
+        public string aCadena()
+        {
+            Nodo aux;
+
+            string cadena = null;
+
+            aux = pri;
+
+            while (aux != null)
+            {
+                cadena = cadena + aux.dato;
+                aux = aux.sig;
+            }
+
+            return cadena;
         }
     }
 }
