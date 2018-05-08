@@ -9,12 +9,12 @@ namespace Mapa
     {
 
         // items basura
-        struct Item
+        public struct Item
         {
             public string name, description;
         }
         // lugares del mapa
-        struct Place
+        public struct Place
         {
             public string name, description;
             public bool spaceShip;
@@ -24,8 +24,8 @@ namespace Mapa
             public Lista.Lista itemsInPlace; // lista de enteros, indices al vector de items
 
         }
-        Place[] places; // vector de lugares del mapa
-        Item[] items; // vector de items del juego
+        public Place[] places; // vector de lugares del mapa
+        public Item[] items; // vector de items del juego
         int nPlaces, nItems; // numero de lugares y numero de items del mapa
 
         public Map(int nPlaces, int nItems)
@@ -180,14 +180,19 @@ namespace Mapa
 
             string moves = null;
 
-            for (int i = 0; i < places[pl].connections.Length; i++)
+            if(nPlaces != 0)
             {
-                if (places[pl].connections[i] != -1)
+                for (int i = 0; i < places[pl].connections.Length; i++)
                 {
-                    string line = Dir2String(i) + ": " + places[pl].name + '\n';
-                    moves = moves + line;
+                    if (places[pl].connections[i] != -1)
+                    {
+                        string line = Dir2String(i) + ": " + places[i].name + '\n';
+                        moves = moves + line;
+                    }
                 }
             }
+
+            
 
             return moves;
 
@@ -195,7 +200,9 @@ namespace Mapa
 
         public int GetNumItems(int pl)
         {
-            return places[pl].itemsInPlace.cuentaEltos();
+            if (nPlaces == 0) return 0;
+            else return places[pl].itemsInPlace.cuentaEltos();
+
         }
 
         public string GetItemsInfo(int it)
