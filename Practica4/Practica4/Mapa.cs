@@ -180,7 +180,7 @@ namespace Mapa
 
             string moves = null;
 
-            if(nPlaces != 0)
+            if(places.Length != 0)
             {
                 for (int i = 0; i < places[pl].connections.Length; i++)
                 {
@@ -191,16 +191,15 @@ namespace Mapa
                     }
                 }
             }
-
             
-
             return moves;
 
         }
 
         public int GetNumItems(int pl)
         {
-            if (nPlaces == 0) return 0;
+            if (places.Length != 0) return 0;
+            else if (places[pl].itemsInPlace.cuentaEltos() == 0) return 0;
             else return places[pl].itemsInPlace.cuentaEltos();
 
         }

@@ -78,6 +78,7 @@ namespace TestsClassMap
         {
             //Arrange
             Map m = new Map(1, 0);
+            m.places[0].itemsInPlace = new Lista.Lista();
             //Act
             int items = m.GetNumItems(0);
             //Assert
@@ -89,12 +90,19 @@ namespace TestsClassMap
         public void GetNumItemsListaLlena()
         {
             //Arrange
+
             Map m = new Map(1, 0);
-            m.places[0].itemsInPlace.insertaFin(1);
+            
+            m.places[0].itemsInPlace = new Lista.Lista();
+            m.places[0].itemsInPlace.insertaIni(1);
+            
+           
             //Act
             int items = m.GetNumItems(0);
+            int eltos = m.places[0].itemsInPlace.cuentaEltos();
             //Assert
             Assert.AreEqual(1, items, "ERROR: No cuenta bien los valores.");
+            
         }
 
         
