@@ -171,31 +171,38 @@ namespace Lista
                 insertaIni(e);
             }
         }
-        public void borraElto(int e)
+        public void borraElto(int ele)
         {
             Nodo n = new Nodo();
-            n = buscaNodo(e);
+            n = buscaNodo(ele);
             Nodo aux = pri; //Anterior Nodo
-            if (n != null)
+            try
             {
-                if (aux.dato == n.dato)
+                if (n != null)
                 {
-                    pri = aux.sig;
+                    if (aux.dato == n.dato)
+                    {
+                        pri = aux.sig;
+                    }
+                    else
+                    {
+                        while (aux != null && aux.sig.dato != ele)
+                        {
+                            aux = aux.sig;
+                        }
+                        aux.sig = n.sig;
+                        Console.WriteLine("Elemento borrado satisfactoriamente.");
+
+                    }
                 }
                 else
                 {
-                    while (aux != null && aux.sig.dato != e)
-                    {
-                        aux = aux.sig;
-                    }
-                    aux.sig = n.sig;
-                    Console.WriteLine("Elemento borrado satisfactoriamente.");
-
+                    throw new Exception("ERROR. No existe el nodo con dato " + ele);
                 }
             }
-            else
+            catch (Exception e)
             {
-                Console.WriteLine("ERROR. No existe el nodo con dato " + e);
+                Console.WriteLine(e);
             }
 
         }
@@ -227,22 +234,29 @@ namespace Lista
         {
             Nodo m = nEsimoNodo(n);
             Nodo anteriorNodo;
-            if (m != null)
+            try
             {
-                if (n > 0)
+                if (m != null)
                 {
-                    anteriorNodo = nEsimoNodo(n - 1);
-                    anteriorNodo.sig = m.sig;
+                    if (n > 0)
+                    {
+                        anteriorNodo = nEsimoNodo(n - 1);
+                        anteriorNodo.sig = m.sig;
 
+                    }
+                    else
+                    {
+                        pri = m.sig;
+                    }
                 }
                 else
                 {
-                    pri = m.sig;
+                    throw new Exception("ERROR. Nodo no encontrado.");
                 }
             }
-            else
+            catch(Exception e)
             {
-                Console.WriteLine("ERROR. Nodo no encontrado.");
+                Console.WriteLine(e);
             }
         }
     }

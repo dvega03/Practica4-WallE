@@ -18,7 +18,7 @@ namespace WallE
             WallE w = new WallE();
             bool empiezaJuego = false;
 
-            m.ReadMap("madrid.map.txt.txt");
+            m.ReadMap("madrid.map.txt");
 
             while (!empiezaJuego)
             {
@@ -112,6 +112,11 @@ namespace WallE
                         terminaJuego = false;
                     }
                 }                            
+            }
+            else if (fin == true)
+            {
+                Console.WriteLine(m.GetPlaceInfo(w.GetPosition()));
+                Console.WriteLine("Presiona cualquier tecla para terminar el juego");
             }
             
             
