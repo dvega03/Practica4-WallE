@@ -18,36 +18,45 @@ namespace WallE
             WallE w = new WallE();
             bool empiezaJuego = false;
 
-            m.ReadMap("madrid.map.txt");
+            m.ReadMap("madrid.map.txt.txt");
 
             while (!empiezaJuego)
             {
-                Console.WriteLine("¿Quieres cargar una partida?" + '\n' + "SI o NO");
-                string resp = Console.ReadLine().ToLower();
-                if (resp == "si")
+                try
                 {
-                    empiezaJuego = true;
-                    Console.WriteLine("Introduzca un nombre de usuario : ");
-                    string usuarioCarga = Console.ReadLine();
-                    try
+                    Console.WriteLine("¿Quieres cargar una partida?" + '\n' + "SI o NO");
+                    string resp = Console.ReadLine().ToLower();
+                    if (resp == "si")
                     {
-                        CargaProgreso(usuarioCarga, w, m);
+                        empiezaJuego = true;
+                        Console.WriteLine("Introduzca un nombre de usuario : ");
+                        string usuarioCarga = Console.ReadLine();
+                        try
+                        {
+                            CargaProgreso(usuarioCarga, w, m);
+                        }
+                        catch
+                        {
+                            empiezaJuego = false;
+                            Console.WriteLine("Usuario no encontrado");
+                        }
+
                     }
-                    catch
+                    else if (resp == "no")
                     {
-                        empiezaJuego = false;
-                        Console.WriteLine("Usuario no encontrado");
+                        empiezaJuego = true;
                     }
-                    
+                    else
+                    {
+                        throw new Exception("Respuesta no admitida, escribe SI o NO");
+                    }
                 }
-                else if (resp == "no")
+                catch (Exception e)
                 {
-                    empiezaJuego = true;
+                    Console.WriteLine(e);
+                    empiezaJuego = false;
                 }
-                else
-                {
-                    Console.WriteLine("Respuesta no admitida, escribe SI o NO");
-                }
+                
             }
             
 
@@ -73,15 +82,36 @@ namespace WallE
 
             if(comando == "quit")
             {
-                Console.WriteLine("¿Desea guardar la partida?" + '\n' + "SI O NO");
-                string res = Console.ReadLine().ToLower();
-                if ( res == "si")
+                bool terminaJuego = false;
+                while (!terminaJuego)
                 {
-                    Console.WriteLine("Introduzca un nombre de usuario : ");
-                    string usuarioGuardado = Console.ReadLine();
-                    ArchivosDeGuardado(usuarioGuardado, w, m);
+                    try
+                    {
+                        Console.WriteLine("¿Desea guardar la partida?" + '\n' + "SI O NO");
+                        string res = Console.ReadLine().ToLower();
+                        if (res == "si")
+                        {
+                            terminaJuego = true;
+                            Console.WriteLine("Introduzca un nombre de usuario : ");
+                            string usuarioGuardado = Console.ReadLine();
+                            ArchivosDeGuardado(usuarioGuardado, w, m);
+                        }
+                        else if (res == "no")
+                        {
+                            terminaJuego = true;
+                        }
+                        else
+                        {
+                            throw new Exception("Respuesta no admitida, escribe SI o NO");
+                        }
+                    }
 
-                }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        terminaJuego = false;
+                    }
+                }                            
             }
             
             
