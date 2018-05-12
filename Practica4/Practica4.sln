@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapa", "Practica4\Mapa.csproj", "{EF393705-9E56-4565-B4DD-91925670F94A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Practica4", "Practica4\Practica4.csproj", "{EF393705-9E56-4565-B4DD-91925670F94A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMapClass", "TestMapClass\TestMapClass.csproj", "{7BF5A81B-561A-4FA7-966E-05B1B596E2DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestListaClass", "TestListaClass\TestListaClass.csproj", "{50D9840B-F16D-4D58-8B36-C7069BEB83D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +19,19 @@ Global
 		{EF393705-9E56-4565-B4DD-91925670F94A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF393705-9E56-4565-B4DD-91925670F94A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF393705-9E56-4565-B4DD-91925670F94A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BF5A81B-561A-4FA7-966E-05B1B596E2DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BF5A81B-561A-4FA7-966E-05B1B596E2DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BF5A81B-561A-4FA7-966E-05B1B596E2DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BF5A81B-561A-4FA7-966E-05B1B596E2DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50D9840B-F16D-4D58-8B36-C7069BEB83D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50D9840B-F16D-4D58-8B36-C7069BEB83D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50D9840B-F16D-4D58-8B36-C7069BEB83D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50D9840B-F16D-4D58-8B36-C7069BEB83D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3466F65D-8C7B-4E06-9A84-CDC2EF37986C}
 	EndGlobalSection
 EndGlobal

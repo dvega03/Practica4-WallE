@@ -10,7 +10,7 @@ using System.IO;
 namespace WallE
 {
 
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -247,7 +247,7 @@ namespace WallE
     }
 
 
-    class WallE
+    public class WallE
     {
         int pos; //posicion de Wall-e en el mapa
         Lista.Lista bag; // lista de items recogidos por wall-e

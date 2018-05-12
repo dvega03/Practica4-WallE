@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Lista
 {
 
-    class Lista
+    public class Lista
     {
         private class Nodo
         {
@@ -171,10 +171,11 @@ namespace Lista
                 insertaIni(e);
             }
         }
-        public void borraElto(int ele)
+        public bool borraElto(int e)
         {
             Nodo n = new Nodo();
-            n = buscaNodo(ele);
+            n = buscaNodo(e);
+            bool eliminado = false;
             Nodo aux = pri; //Anterior Nodo
             try
             {
@@ -183,27 +184,31 @@ namespace Lista
                     if (aux.dato == n.dato)
                     {
                         pri = aux.sig;
+                        eliminado = true;
                     }
                     else
                     {
-                        while (aux != null && aux.sig.dato != ele)
+                        while (aux != null && aux.sig.dato != e)
                         {
                             aux = aux.sig;
                         }
                         aux.sig = n.sig;
-                        Console.WriteLine("Elemento borrado satisfactoriamente.");
+                        eliminado = true;
 
                     }
                 }
                 else
                 {
-                    throw new Exception("ERROR. No existe el nodo con dato " + ele);
+                    throw new Exception("ERROR. No existe el nodo con dato " + e);
+                    eliminado = false;
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(ex);
             }
+
+            return eliminado;
 
         }
         public void borraTodos(int e)

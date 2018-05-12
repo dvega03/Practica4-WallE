@@ -7,16 +7,16 @@ namespace Mapa
 {
     // posibles direcciones
     public enum Direction { North, South, East, West };
-    class Map
+    public class Map
     {
 
         // items basura
-        struct Item
+        public struct Item
         {
             public string name, description;
         }
         // lugares del mapa
-        struct Place
+        public struct Place
         {
             public string name, description;
             public bool spaceShip;
