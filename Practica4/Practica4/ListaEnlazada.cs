@@ -264,5 +264,22 @@ namespace Lista
                 Console.WriteLine(e);
             }
         }
+
+        public string aCadena()
+        {
+            Nodo aux;
+
+            string cadena = null;
+
+            aux = pri;
+
+            while (aux != null)
+            {
+                cadena = cadena + aux.dato;
+                aux = aux.sig;
+            }
+
+            return cadena;
+        }
     }
 }

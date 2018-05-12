@@ -2,10 +2,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Lista;
 
-namespace UnitTestProject1
+namespace TestListaClass
 {
     [TestClass]
-    public class TestsListaVacia
+    public class TestsLista
     {
 
 

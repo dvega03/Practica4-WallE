@@ -26,8 +26,8 @@ namespace Mapa
             public Lista.Lista itemsInPlace; // lista de enteros, indices al vector de items
 
         }
-        Place[] places; // vector de lugares del mapa
-        Item[] items; // vector de items del juego
+        public Place[] places; // vector de lugares del mapa
+        public Item[] items; // vector de items del juego
         int nPlaces, nItems; // numero de lugares y numero de items del mapa
 
         public Map(int nPlaces, int nItems)
@@ -183,30 +183,48 @@ namespace Mapa
 
         public string GetMoves(int pl)
         {
-
             string moves = null;
 
-            for (int i = 0; i < places[pl].connections.Length; i++)
+            if (places.Length != 0)
             {
-                if (places[pl].connections[i] != -1)
+                for (int i = 0; i < places[pl].connections.Length; i++)
                 {
-                    string line = Dir2String(i) + ": " + places[pl].name + '\n';
-                    moves = moves + line;
+                    if (places[pl].connections[i] != -1)
+                    {
+                        string line = Dir2String(i) + " : " + places[places[pl].connections[i]].name + '\n';
+                        moves = moves + line;
+                    }
                 }
             }
-
+            
             return moves;
 
         }
 
         public int GetNumItems(int pl)
         {
-            return places[pl].itemsInPlace.cuentaEltos();
+            int numItems = 0;
+            if(places.Length != 0)
+            {
+                numItems = places[pl].itemsInPlace.cuentaEltos();
+            }
+
+            return numItems;
+            
         }
 
         public string GetItemsInfo(int it)
         {
-            string info = it + ": " + items[it].name + " " + items[it].description;
+            string info = null;
+
+            if(items.Length != 0 && it >= 0 && it < items.Length)
+            {
+                if(items[it].name != null && items[it].description != null)
+                {
+                    info = it + ": " + items[it].name + " : " + items[it].description;
+                }
+            }
+            
             return info;
         }
 
@@ -215,12 +233,15 @@ namespace Mapa
         {
             string info = null;
 
-            for (int i = 0; i < places[pl].itemsInPlace.cuentaEltos(); i++)
+            if(places.Length != 0 && items.Length != 0 && places[pl].itemsInPlace.cuentaEltos() != 0)
             {
-                string linea = places[pl].itemsInPlace.nEsimo(i) + ": " + items[places[pl].itemsInPlace.nEsimo(i)].name + " " + items[places[pl].itemsInPlace.nEsimo(i)].description + '\n';
-                info = info + linea;
+                for (int i = 0; i < places[pl].itemsInPlace.cuentaEltos(); i++)
+                {
+                    string linea = places[pl].itemsInPlace.nEsimo(i) + ": " + items[places[pl].itemsInPlace.nEsimo(i)].name + " " + items[places[pl].itemsInPlace.nEsimo(i)].description + '\n';
+                    info = info + linea;
+                }
             }
-
+            
             return info;
 
         }
