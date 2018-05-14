@@ -232,5 +232,239 @@ namespace TestsClassMap
 
         }
 
+        [TestMethod]
+        public void PickItems()
+        {
+            //Arrange
+            Map m = new Map(1, 4);
+
+            m.places[0].itemsInPlace = new Lista.Lista();
+            int items1, items2;
+
+            for (int i = 0; i < m.items.Length; i++)
+            {
+                m.places[0].itemsInPlace.insertaFin(i);
+                m.items[i].name = "Place" + i;
+                m.items[i].description = "PlaceDesc" + i;
+                
+            }
+
+
+            //Act
+            items1 = m.places[0].itemsInPlace.cuentaEltos();
+            m.PickItemPlace(0, 0);
+            items2 = m.places[0].itemsInPlace.cuentaEltos();
+
+            //Assert
+            Assert.AreEqual(items1 - 1, items2, "ERROR: Deberia haber un item menos");
+
+        }
+
+        [TestMethod]
+        public void DropItemPlace()
+        {
+            //Arrange
+            Map m = new Map(1, 4);
+
+            m.places[0].itemsInPlace = new Lista.Lista();
+            int items1, items2;
+
+            for (int i = 0; i < m.items.Length; i++)
+            {
+                m.places[0].itemsInPlace.insertaFin(i);
+                m.items[i].name = "Place" + i;
+                m.items[i].description = "PlaceDesc" + i;
+
+            }
+
+
+            //Act
+            items1 = m.places[0].itemsInPlace.cuentaEltos();
+            m.DropItemPlace(0, 0);
+            items2 = m.places[0].itemsInPlace.cuentaEltos();
+
+            //Assert
+            Assert.AreEqual(items1 + 1, items2, "ERROR: Deberia haber un item menos");
+
+        }
+
+        [TestMethod]
+        public void MoveNoHayPlaces()
+        {
+            //Arrange
+            Map m = new Map(0, 0);
+            int pl = 0;
+            Direction dir = Direction.North;
+
+            //Act
+            int newpos = m.Move(pl, dir);
+
+            //Assert
+            Assert.AreEqual(-1, newpos, "ERROR: Deberia devolver -1 porque no hay Places");
+        }
+
+        [TestMethod]
+        public void MoveNorth()
+        {
+            //Arrange
+            Map m = new Map(5, 0);
+            m.places[0].connections = new int [4];
+            for(int i = 0; i < m.places[0].connections.Length; i++)
+            {
+                m.places[0].connections[i] = i + 1;
+            }
+            int pl = 0;
+            Direction dir = Direction.North;
+
+            //Act
+            int newpos = m.Move(pl, dir);
+
+            //Assert
+            Assert.AreEqual(1, newpos, "ERROR: Deberia devolver 1 porque existe la conexión al norte");
+        }
+
+        [TestMethod]
+        public void MoveSouth()
+        {
+            //Arrange
+            Map m = new Map(5, 0);
+            m.places[0].connections = new int[4];
+            for (int i = 0; i < m.places[0].connections.Length; i++)
+            {
+                m.places[0].connections[i] = i + 1;
+            }
+            int pl = 0;
+            Direction dir = Direction.South;
+
+            //Act
+            int newpos = m.Move(pl, dir);
+
+            //Assert
+            Assert.AreEqual(2, newpos, "ERROR: Deberia devolver 2 porque existe la conexión al sur");
+        }
+
+        [TestMethod]
+        public void MoveEast()
+        {
+            //Arrange
+            Map m = new Map(5, 0);
+            m.places[0].connections = new int[4];
+            for (int i = 0; i < m.places[0].connections.Length; i++)
+            {
+                m.places[0].connections[i] = i + 1;
+            }
+            int pl = 0;
+            Direction dir = Direction.East;
+
+            //Act
+            int newpos = m.Move(pl, dir);
+
+            //Assert
+            Assert.AreEqual(3, newpos, "ERROR: Deberia devolver 3 porque existe la conexión al este");
+        }
+
+        [TestMethod]
+        public void MoveWest()
+        {
+            //Arrange
+            Map m = new Map(5, 0);
+            m.places[0].connections = new int[4];
+            for (int i = 0; i < m.places[0].connections.Length; i++)
+            {
+                m.places[0].connections[i] = i + 1;
+            }
+            int pl = 0;
+            Direction dir = Direction.West;
+
+            //Act
+            int newpos = m.Move(pl, dir);
+
+            //Assert
+            Assert.AreEqual(4, newpos, "ERROR: Deberia devolver 4 porque existe la conexión al oeste");
+        }
+
+        [TestMethod]
+        public void MoveNorthNoHayConnection()
+        {
+            //Arrange
+            Map m = new Map(5, 0);
+            m.places[0].connections = new int[4];
+            for (int i = 0; i < m.places[0].connections.Length; i++)
+            {
+                m.places[0].connections[i] = i + 1;
+            }
+            m.places[0].connections[0] = -1;
+            int pl = 0;
+            Direction dir = Direction.North;
+
+            //Act
+            int newpos = m.Move(pl, dir);
+
+            //Assert
+            Assert.AreEqual(-1, newpos, "ERROR: Deberia devolver -1 porque no existe la conexión al norte");
+        }
+
+        [TestMethod]
+        public void MoveSouththNoHayConnection()
+        {
+            //Arrange
+            Map m = new Map(5, 0);
+            m.places[0].connections = new int[4];
+            for (int i = 0; i < m.places[0].connections.Length; i++)
+            {
+                m.places[0].connections[i] = i + 1;
+            }
+            m.places[0].connections[1] = -1;
+            int pl = 0;
+            Direction dir = Direction.South;
+
+            //Act
+            int newpos = m.Move(pl, dir);
+
+            //Assert
+            Assert.AreEqual(-1, newpos, "ERROR: Deberia devolver -1 porque no existe la conexión al sur");
+        }
+
+        [TestMethod]
+        public void MoveEastNoHayConnection()
+        {
+            //Arrange
+            Map m = new Map(5, 0);
+            m.places[0].connections = new int[4];
+            for (int i = 0; i < m.places[0].connections.Length; i++)
+            {
+                m.places[0].connections[i] = i + 1;
+            }
+            m.places[0].connections[2] = -1;
+            int pl = 0;
+            Direction dir = Direction.East;
+
+            //Act
+            int newpos = m.Move(pl, dir);
+
+            //Assert
+            Assert.AreEqual(-1, newpos, "ERROR: Deberia devolver -1 porque no existe la conexión al este");
+        }
+
+        [TestMethod]
+        public void MoveWestNoHayConnection()
+        {
+            //Arrange
+            Map m = new Map(5, 0);
+            m.places[0].connections = new int[4];
+            for (int i = 0; i < m.places[0].connections.Length; i++)
+            {
+                m.places[0].connections[i] = i + 1;
+            }
+            m.places[0].connections[3] = -1;
+            int pl = 0;
+            Direction dir = Direction.West;
+
+            //Act
+            int newpos = m.Move(pl, dir);
+
+            //Assert
+            Assert.AreEqual(-1, newpos, "ERROR: Deberia devolver -1 porque no existe la conexión al oeste");
+        }
     }
 }
