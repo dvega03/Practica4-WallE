@@ -266,7 +266,15 @@ namespace WallE
 
         public void Move(Map m, Direction dir)
         {
-            pos = m.Move(pos, dir);
+            int newpos = m.Move(pos, dir);
+            if(newpos != -1)
+            {
+                pos = newpos;
+            }
+            else
+            {
+                Console.WriteLine("No puedes ir mas allá en esta dirección");
+            }
         }
         public void PickItem(Map m, int it)
         {

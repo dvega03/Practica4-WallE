@@ -258,21 +258,19 @@ namespace Mapa
 
         public int Move(int pl, Direction dir)//Hacer excepcion de fuera de rango 
         {
-            int lugarLlegada = pl;
-            try
+            int lugarLlegada = -1;
+            if(places.Length != 0)
             {
+                lugarLlegada = pl;
                 int dirIndex = (int)dir;
                 if (places[pl].connections[dirIndex] >= 0 && places[pl].connections[dirIndex] < places.Length)
-                lugarLlegada = places[pl].connections[dirIndex];
+                    lugarLlegada = places[pl].connections[dirIndex];
                 else
                 {
-                    throw new Exception("No puedes avanzar más en esa dirección");
+                    lugarLlegada = -1;
                 }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+
             return lugarLlegada;
 
         }
