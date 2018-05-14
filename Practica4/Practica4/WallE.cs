@@ -249,8 +249,8 @@ namespace WallE
 
     public class WallE
     {
-        int pos; //posicion de Wall-e en el mapa
-        Lista.Lista bag; // lista de items recogidos por wall-e
+        public int pos; //posicion de Wall-e en el mapa
+        public Lista.Lista bag; // lista de items recogidos por wall-e
                          //(son indices a la lista de items del mapa)
 
         public WallE()
