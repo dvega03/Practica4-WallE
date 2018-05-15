@@ -277,7 +277,12 @@ namespace Mapa
 
         public bool isSpaceship(int pl)
         {
-            return places[pl].spaceShip;
+            if (places.Length > 0)
+            {
+                return places[pl].spaceShip;
+            }
+            else
+                return false;
         }
 
         public void GuardaPartida(string usuario, int pos, string bag)

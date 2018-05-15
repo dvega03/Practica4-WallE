@@ -466,5 +466,47 @@ namespace TestsClassMap
             //Assert
             Assert.AreEqual(-1, newpos, "ERROR: Deberia devolver -1 porque no existe la conexión al oeste");
         }
+
+        [TestMethod]
+        public void IsSpaceShipNoHayPlace()
+        {
+            //Arrange
+            Map m = new Map(0, 0);
+
+            //Act
+            bool spaceShip = m.isSpaceship(0);
+
+            //Assert
+            Assert.AreEqual(false, spaceShip, "ERROR: Deberia ser false ya que no hay place");
+
+        }
+
+        [TestMethod]
+        public void IsSpaceShipTrue()
+        {
+            //Arrange
+            Map m = new Map(1, 0);
+
+            //Act
+            m.places[0].spaceShip = true;
+            bool spaceShip = m.isSpaceship(0);
+
+            //Assert
+            Assert.AreEqual(true, spaceShip, "ERROR: Deberia ser true");
+        }
+
+        [TestMethod]
+        public void IsSpaceShipFalse()
+        {
+            //Arrange
+            Map m = new Map(1, 0);
+
+            //Act
+            m.places[0].spaceShip = false;
+            bool spaceShip = m.isSpaceship(0);
+
+            //Assert
+            Assert.AreEqual(false, spaceShip, "ERROR: Deberia ser true");
+        }
     }
 }
