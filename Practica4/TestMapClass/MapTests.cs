@@ -71,6 +71,7 @@ namespace TestsClassMap
             int items = m.GetNumItems(0);
             //Assert
             Assert.AreEqual(0, items, "ERROR: Deberia ser null ya que no hay array de places");
+            
         }
 
         [TestMethod]
@@ -158,7 +159,7 @@ namespace TestsClassMap
             string info = m.GetItemsInfo(0);
 
             //Assert
-            Assert.AreEqual("0: Place0 : Description de Place0", info, "ERROR: Deberia ser null ya que la posicion especificada no es valida");
+            Assert.AreEqual("0: Place0 Description de Place0", info, "ERROR: Deberia ser null ya que la posicion especificada no es valida");
 
         }
 
@@ -229,6 +230,7 @@ namespace TestsClassMap
 
             //Assert
             Assert.AreEqual(expected, info, "ERROR: Deberia ser null ya que no hay items");
+           
 
         }
 

@@ -221,7 +221,7 @@ namespace Mapa
             {
                 if(items[it].name != null && items[it].description != null)
                 {
-                    info = it + ": " + items[it].name + " : " + items[it].description;
+                    info = it + ": " + items[it].name + " " + items[it].description;
                 }
             }
             
