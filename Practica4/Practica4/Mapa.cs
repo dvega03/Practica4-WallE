@@ -69,7 +69,7 @@ namespace Mapa
             
         }
 
-        private void CreatePlace(string[] palabras, StreamReader f)
+        public void CreatePlace(string[] palabras, StreamReader f)
         {
 
 
@@ -101,7 +101,7 @@ namespace Mapa
             }
         }
 
-        private void CreateStreet(string[] palabras)
+        public void CreateStreet(string[] palabras)
         {
             int place = int.Parse(palabras[3]);
             int placeToGo = int.Parse(palabras[6]);
@@ -143,7 +143,7 @@ namespace Mapa
             }
         }
 
-        private void CreateItem(string[] palabras)
+        public void CreateItem(string[] palabras)
         {
             string itemInfo = "";
             for (int i = 5; i < palabras.Length; i++)

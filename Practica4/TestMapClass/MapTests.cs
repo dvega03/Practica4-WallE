@@ -510,5 +510,86 @@ namespace TestsClassMap
             //Assert
             Assert.AreEqual(false, spaceShip, "ERROR: Deberia ser true");
         }
+
+        //[TestMethod]
+        //public void CreatePlaceNoHayPlaces()
+        //{
+        //    //Assert
+        //    Map m = new Map(1, 0);
+        //    string text = "place 1 Name1 noSpaceShip"+ '\n' + '"' + "Description1" + '"' + '\n';
+        //    string[] palabras = text.Split(' ');
+        //    //Act
+        //    m.CreatePlace(palabras);
+        //    //Arrange
+        //    Assert.AreEqual("")
+        //}
+
+        [TestMethod]
+        public void CreateStreetConDatos()
+        {
+            //Arrange
+            Map m = new Map(2, 0);
+
+            for (int i = 0; i < m.places.Length; i++)
+            {
+                m.places[i].name = "Place" + i;
+                m.places[i].connections = new int[4];
+            }
+            string text = "street 0 place 0 north place 1" + '\n';
+            string[] palabras = text.Split(' ');
+            //Act
+            m.CreateStreet(palabras);
+            //Assert
+            Assert.AreEqual(1, m.places[0].connections[0], "E");
+            Assert.AreEqual(0, m.places[1].connections[1], "Er");
+            Assert.AreEqual("Place1", m.places[m.places[0].connections[0]].name, "Err");
+            Assert.AreEqual("Place0", m.places[m.places[1].connections[1]].name, "Erro");
+
+        }
+
+        [TestMethod]
+        public void CreateStreetSinDatos()
+        {
+            //Arrange
+            Map m = new Map(2, 0);
+
+            for (int i = 0; i < m.places.Length; i++)
+            {
+                m.places[i].name = "Place" + i;
+                m.places[i].connections = new int[4];
+            }
+            string text = "street 0 place 0 north place 1" + '\n';
+            string[] palabras = text.Split(' ');
+            //Act
+            m.CreateStreet(palabras);
+            //Assert
+            Assert.AreEqual(1, m.places[0].connections[0], "E");
+            Assert.AreEqual(0, m.places[1].connections[1], "Er");
+            Assert.AreEqual("Place1", m.places[m.places[0].connections[0]].name, "Err");
+            Assert.AreEqual("Place0", m.places[m.places[1].connections[1]].name, "Erro");
+
+        }
+
+        //[TestMethod]
+        //public void CreateStreetSinDatos()
+        //{
+        //    //Arrange
+        //    Map m = new Map(2, 0);
+
+        //    for (int i = 0; i < m.places.Length; i++)
+        //    {
+        //        m.places[i].name = "Place" + i;
+        //        m.places[i].connections = new int[4];
+        //    }
+        //    string text = "0 place 0 north place 1" + '\n';
+        //    string[] palabras = text.Split(' ');
+        //    //Act
+        //    m.CreateStreet(palabras);
+        //    //Assert
+
+        //    Assert.AreEqual(null, m.places[m.places[0].connections[0]].name, "Err");
+        //    Assert.AreEqual(null, m.places[m.places[1].connections[1]].name, "Erro");
+
+        //}
     }
 }
