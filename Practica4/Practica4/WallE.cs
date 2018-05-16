@@ -116,7 +116,8 @@ namespace WallE
             else if (fin == true)
             {
                 Console.WriteLine(m.GetPlaceInfo(w.GetPosition()));
-                Console.WriteLine("Presiona cualquier tecla para terminar el juego");
+                Console.WriteLine("Objetos encontrados:");
+                Console.WriteLine(w.Bag(m));
             }
             
             

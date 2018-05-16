@@ -199,8 +199,8 @@ namespace Lista
                 }
                 else
                 {
-                    throw new Exception("ERROR. No existe el nodo con dato " + e);
                     eliminado = false;
+                    throw new Exception("ERROR. No existe el nodo con dato " + e);
                 }
             }
             catch (Exception ex)
