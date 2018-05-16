@@ -151,7 +151,8 @@ namespace Mapa
                 itemInfo = itemInfo + palabras[i] + " ";
             }
             items[int.Parse(palabras[1])].name = palabras[2];
-            items[int.Parse(palabras[1])].description = itemInfo;
+            string[] itemInfoSeparada = itemInfo.Split('"');
+            items[int.Parse(palabras[1])].description = itemInfoSeparada[1];
 
 
             places[int.Parse(palabras[4])].itemsInPlace.insertaFin(int.Parse(palabras[1]));

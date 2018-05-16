@@ -265,6 +265,7 @@ namespace Lista
             }
         }
 
+#region PracticaMap
         public string aCadena()
         {
             Nodo aux;
@@ -281,5 +282,6 @@ namespace Lista
 
             return cadena;
         }
+#endregion
     }
 }
