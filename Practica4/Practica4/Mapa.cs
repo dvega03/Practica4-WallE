@@ -257,7 +257,7 @@ namespace Mapa
             places[pl].itemsInPlace.insertaNesimo(it, it);
         }
 
-        public int Move(int pl, Direction dir)//Hacer excepcion de fuera de rango 
+        public int Move(int pl, Direction dir)
         {
             int lugarLlegada = -1;
             if(places.Length != 0)
@@ -354,8 +354,8 @@ namespace Mapa
             return direction;
         }
 
-
-
+        
+        
     }
 
 }

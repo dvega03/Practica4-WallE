@@ -18,7 +18,7 @@ namespace WallE
             WallE w = new WallE();
             bool empiezaJuego = false;
 
-            m.ReadMap("madrid.map.txt");
+            m.ReadMap("madrid.m.txt");
 
             while (!empiezaJuego)
             {
@@ -124,10 +124,11 @@ namespace WallE
 
         }
 
-        static void ArchivosDeGuardado(string usuario, WallE w, Map m)
+        static void GestorDeGuardado(string usuario, WallE w, Map m)
         {
             if (File.Exists(usuario))
             {
+                File.WriteAllText(usuario, string.Empty);
                 GuardaProgreso(usuario, w, m);
             }
             else
@@ -279,13 +280,21 @@ namespace WallE
         }
         public void PickItem(Map m, int it)
         {
-            m.PickItemPlace(pos, it);
-            bag.insertaFin(it);
+            if(m.GetNumItems(pos) != 0)
+            {
+                m.PickItemPlace(pos, it);
+                bag.insertaFin(it);
+            }
+            
         }
         public void DropItem(Map m, int it)
         {
-            m.DropItemPlace(pos, it);
-            bag.borraNesimo(it);
+            if(bag.cuentaEltos() != 0)
+            {
+                m.DropItemPlace(pos, it);
+                bag.borraNesimo(it);
+            }
+            
         }
         public string Bag(Map m)
         {
@@ -300,9 +309,9 @@ namespace WallE
             return items;
         }
 
-        public bool atSpaceShip(Map map)
+        public bool atSpaceShip(Map m)
         {
-            return map.isSpaceship(pos);
+            return m.isSpaceship(pos);
         }
 
         public void CargaPartida(StreamReader f, Map m)
@@ -323,6 +332,8 @@ namespace WallE
             m.CargaPartida(f);
 
         }
+
+        
 
     }
 
