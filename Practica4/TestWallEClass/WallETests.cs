@@ -186,7 +186,7 @@ namespace TestWallEClass
             m.places[0].spaceShip = true;
             //Act
             //Assert
-            Assert.IsTrue(w.atSpaceShip(m), "ERROR: No se han leigo bien los datos");
+            Assert.IsTrue(w.atSpaceShip(m), "ERROR: No se han leido bien los datos");
 
         }
 
@@ -200,7 +200,7 @@ namespace TestWallEClass
             m.places[0].spaceShip = false;
             //Act
             //Assert
-            Assert.IsFalse(w.atSpaceShip(m), "ERROR: No se han leigo bien los datos");
+            Assert.IsFalse(w.atSpaceShip(m), "ERROR: No se han leido bien los datos");
 
         }
 
