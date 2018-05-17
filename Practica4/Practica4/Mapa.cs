@@ -106,7 +106,7 @@ namespace Mapa
             int place = 0;
             int placeToGo = 0;
 
-            if (palabras[0] == "street")
+            if (palabras[0] == "street" && places.Length != 0)
             {
                 place = int.Parse(palabras[3]);
                 placeToGo = int.Parse(palabras[6]);
@@ -143,7 +143,7 @@ namespace Mapa
                 }
                 
             }
-            else //Si no hay street no hay conections
+            else //Si no hay street no hay connections
             {
                 for (int i = 0; i < places[place].connections.Length; i++)
                 {
@@ -155,17 +155,23 @@ namespace Mapa
 
         public void CreateItem(string[] palabras)
         {
-            string itemInfo = "";
-            for (int i = 5; i < palabras.Length; i++)
+            string itemInfo = null;
+
+            if (palabras[0] == "garbage" && places.Length != 0)
             {
-                itemInfo = itemInfo + palabras[i] + " ";
+                for (int i = 5; i < palabras.Length; i++)
+                {
+                    itemInfo = itemInfo + palabras[i] + " ";
+                }
+                items[int.Parse(palabras[1])].name = palabras[2];
+                string[] itemInfoSeparada = itemInfo.Split('"');
+                items[int.Parse(palabras[1])].description = itemInfoSeparada[1];
+
+
+                places[int.Parse(palabras[4])].itemsInPlace.insertaFin(int.Parse(palabras[1]));
             }
-            items[int.Parse(palabras[1])].name = palabras[2];
-            string[] itemInfoSeparada = itemInfo.Split('"');
-            items[int.Parse(palabras[1])].description = itemInfoSeparada[1];
-
-
-            places[int.Parse(palabras[4])].itemsInPlace.insertaFin(int.Parse(palabras[1]));
+         
+            
         }
 
         private string ReadDescription(StreamReader f)
