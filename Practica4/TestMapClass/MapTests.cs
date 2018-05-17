@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mapa;
 
@@ -614,18 +615,26 @@ namespace TestsClassMap
 
         }
 
-        //[TestMethod]
-        //public void CreatePlaceNoHayPlaces()
-        //{
-        //    //Assert
-        //    Map m = new Map(1, 0);
-        //    string text = "place 1 Name1 noSpaceShip"+ '\n' + '"' + "Description1" + '"' + '\n';
-        //    string[] palabras = text.Split(' ');
-        //    //Act
-        //    m.CreatePlace(palabras);
-        //    //Arrange
-        //    Assert.AreEqual("")
-        //}
+        [TestMethod]
+        public void CreatePlaceConDatos()
+        {
+            //Arrange
+            Map m = new Map(1, 0);
+            StreamWriter escrituraPrueba;
+            escrituraPrueba = new StreamWriter("Test1.txt");
+            escrituraPrueba.WriteLine("place 0 LugarPrueba noSpaceShip");
+            escrituraPrueba.Write('"' + "Informacion de prueba" + '"');
+            escrituraPrueba.Close();
+            StreamReader lecturaPrueba;
+            lecturaPrueba = new StreamReader("Test1.txt");
+            string linea = lecturaPrueba.ReadLine();
+            string[] palabras = linea.Split(' ');
+            //Act
+            m.CreatePlace(palabras, lecturaPrueba);
+            //Assert
+            Assert.AreEqual("LugarPrueba", m.places[0].name, "ERROR1");
+            Assert.AreEqual("Informacion de prueba", m.places[0].description, "ERROR2");
+        }
 
 
     }

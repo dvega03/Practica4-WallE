@@ -45,7 +45,6 @@ namespace Mapa
            
             StreamReader entrada = new StreamReader(file);
             
-            
 
             
 
