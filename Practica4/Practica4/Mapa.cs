@@ -73,7 +73,7 @@ namespace Mapa
             
         }
 
-        private void CreatePlace(string[] palabras, StreamReader f)
+        public void CreatePlace(string[] palabras, StreamReader f)
         {
 
 
@@ -105,61 +105,77 @@ namespace Mapa
             }
         }
 
-        private void CreateStreet(string[] palabras)
+        public void CreateStreet(string[] palabras)
         {
-            int place = int.Parse(palabras[3]);
-            int placeToGo = int.Parse(palabras[6]);
-            int index = 0;
-            int indexReverse = 0;
+            int place = 0;
+            int placeToGo = 0;
 
-
-
-            if (palabras[2] == "place")
+            if (palabras[0] == "street" && places.Length != 0)
             {
-                switch (palabras[4])
+                place = int.Parse(palabras[3]);
+                placeToGo = int.Parse(palabras[6]);
+                int index = 0;
+                int indexReverse = 0;
+
+                if (palabras[2] == "place")
                 {
-                    case "north":
-                        index = 0;
-                        indexReverse = 1;
-                        break;
+                    switch (palabras[4])
+                    {
+                        case "north":
+                            index = 0;
+                            indexReverse = 1;
+                            break;
 
-                    case "south":
-                        index = 1;
-                        indexReverse = 0;
-                        break;
+                        case "south":
+                            index = 1;
+                            indexReverse = 0;
+                            break;
 
-                    case "east":
-                        index = 2;
-                        indexReverse = 3;
-                        break;
+                        case "east":
+                            index = 2;
+                            indexReverse = 3;
+                            break;
 
-                    case "west":
-                        index = 3;
-                        indexReverse = 2;
-                        break;
+                        case "west":
+                            index = 3;
+                            indexReverse = 2;
+                            break;
+                    }
+
+                    places[place].connections[index] = placeToGo;
+                    places[placeToGo].connections[indexReverse] = place;
                 }
-
-                places[place].connections[index] = placeToGo;
-                places[placeToGo].connections[indexReverse] = place;
-
                 
+            }
+            else //Si no hay street no hay connections
+            {
+                for (int i = 0; i < places[place].connections.Length; i++)
+                {
+                    places[place].connections[i] = -1;
+                }
 
             }
         }
 
-        private void CreateItem(string[] palabras)
+        public void CreateItem(string[] palabras)
         {
-            string itemInfo = "";
-            for (int i = 5; i < palabras.Length; i++)
+            string itemInfo = null;
+
+            if (palabras[0] == "garbage" && places.Length != 0)
             {
-                itemInfo = itemInfo + palabras[i] + " ";
+                for (int i = 5; i < palabras.Length; i++)
+                {
+                    itemInfo = itemInfo + palabras[i] + " ";
+                }
+                items[int.Parse(palabras[1])].name = palabras[2];
+                string[] itemInfoSeparada = itemInfo.Split('"');
+                items[int.Parse(palabras[1])].description = itemInfoSeparada[1];
+
+
+                places[int.Parse(palabras[4])].itemsInPlace.insertaFin(int.Parse(palabras[1]));
             }
-            items[int.Parse(palabras[1])].name = palabras[2];
-            string[] itemInfoSeparada = itemInfo.Split('"');
-            items[int.Parse(palabras[1])].description = itemInfoSeparada[1];
-
-
-            places[int.Parse(palabras[4])].itemsInPlace.insertaFin(int.Parse(palabras[1]));
+         
+            
         }
 
         private string ReadDescription(StreamReader f)

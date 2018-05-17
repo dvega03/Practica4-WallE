@@ -510,5 +510,123 @@ namespace TestsClassMap
             //Assert
             Assert.AreEqual(false, spaceShip, "ERROR: Deberia ser true");
         }
+
+       
+
+        [TestMethod]
+        public void CreateStreetConDatos()
+        {
+            //Arrange
+            Map m = new Map(2, 0);
+
+            for (int i = 0; i < m.places.Length; i++)
+            {
+                m.places[i].name = "Place" + i;
+                m.places[i].connections = new int[4];
+            }
+            string text = "street 0 place 0 north place 1" + '\n';
+            string[] palabras = text.Split(' ');
+            //Act
+            m.CreateStreet(palabras);
+            //Assert
+            Assert.AreEqual(1, m.places[0].connections[0], "E");
+            Assert.AreEqual(0, m.places[1].connections[1], "Er");
+            Assert.AreEqual("Place1", m.places[m.places[0].connections[0]].name, "Err");
+            Assert.AreEqual("Place0", m.places[m.places[1].connections[1]].name, "Erro");
+
+        }
+
+        [TestMethod]
+        public void CreateStreetSinDatos()
+        {
+            //Arrange
+            Map m = new Map(2, 0);
+
+            for (int i = 0; i < m.places.Length; i++)
+            {
+                m.places[i].name = "Place" + i;
+                m.places[i].connections = new int[4];
+            }
+            string text = "0 place 0 north place 1" + '\n';
+            string[] palabras = text.Split(' ');
+            //Act
+            m.CreateStreet(palabras);
+            //Assert
+            Assert.AreEqual(-1, m.places[0].connections[0], "ERROR: No hay conexiones asi que de deberia ser -1");
+
+        }
+
+        
+
+        [TestMethod]
+        public void CreateItemConDatos()
+        {
+            //Arrange
+            Map m = new Map(1, 1);
+            m.places[0].itemsInPlace = new Lista.Lista();
+            string text = "garbage 0 Item1 place 0 "+'"'+"DescItems1";
+            string[] palabras = text.Split(' ');
+
+            //Act
+            m.CreateItem(palabras);
+
+            //Assert
+            Assert.AreEqual("Item1",m.items[0].name, "");
+            Assert.AreEqual("DescItems1 " , m.items[0].description, "");
+
+        }
+
+        [TestMethod]
+        public void CreateItemSinDatos()
+        {
+            //Arrange
+            Map m = new Map(1, 1);
+            m.places[0].itemsInPlace = new Lista.Lista();
+            string text = "street 0 Item1 place 0 " + '"' + "DescItems1";
+            string[] palabras = text.Split(' ');
+
+            //Act
+            m.CreateItem(palabras);
+
+            //Assert
+            Assert.AreEqual(null, m.items[0].name, "");
+            Assert.AreEqual(null, m.items[0].description, "");
+            Assert.AreEqual(0, m.places[0].itemsInPlace.cuentaEltos());
+            
+        }
+
+        [TestMethod]
+        public void CreateItemNoHayPlaces()
+        {
+            //Arrange
+            Map m = new Map(0, 1);
+            
+            string text = "garbage 0 Item1 place 0 " + '"' + "DescItems1";
+            string[] palabras = text.Split(' ');
+
+            //Act
+            m.CreateItem(palabras);
+
+            //Assert
+            Assert.AreEqual(null, m.items[0].name, "");
+            Assert.AreEqual(null, m.items[0].description, "");
+            
+
+        }
+
+        //[TestMethod]
+        //public void CreatePlaceNoHayPlaces()
+        //{
+        //    //Assert
+        //    Map m = new Map(1, 0);
+        //    string text = "place 1 Name1 noSpaceShip"+ '\n' + '"' + "Description1" + '"' + '\n';
+        //    string[] palabras = text.Split(' ');
+        //    //Act
+        //    m.CreatePlace(palabras);
+        //    //Arrange
+        //    Assert.AreEqual("")
+        //}
+
+
     }
 }

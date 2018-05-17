@@ -304,10 +304,14 @@ namespace WallE
         {
             string items = null;
             int i = 0;
-            while (i < bag.cuentaEltos())
+            if (bag.cuentaEltos() != 0 && m.GetItemsInfo(bag.nEsimo(i)) != null)
             {
-                items = items + m.GetItemsInfo(bag.nEsimo(i)) + '\n';
-                i++;
+
+                while (i < bag.cuentaEltos())
+                {
+                    items = items + m.GetItemsInfo(bag.nEsimo(i)) + '\n';
+                    i++;
+                }
             }
 
             return items;
