@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Álvaro Carrasco Jurado
+// Daniel Vega Levy
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

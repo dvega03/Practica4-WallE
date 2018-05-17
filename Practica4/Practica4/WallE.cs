@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Álvaro Carrasco Jurado
+// Daniel Vega Levy
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -94,7 +98,7 @@ namespace WallE
                             terminaJuego = true;
                             Console.WriteLine("Introduzca un nombre de usuario : ");
                             string usuarioGuardado = Console.ReadLine();
-                            ArchivosDeGuardado(usuarioGuardado, w, m);
+                            GestorDeGuardado(usuarioGuardado, w, m);
                         }
                         else if (res == "no")
                         {
